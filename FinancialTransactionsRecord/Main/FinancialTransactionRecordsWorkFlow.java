@@ -12,10 +12,10 @@ public class FinancialTransactionRecordsWorkFlow {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public  void run(String accountId, Date from, Date to) throws IOException, ParseException {
+	public  void run(String accountId, Date from, Date to, String fileName) throws IOException, ParseException {
 	
 		//read data form the file
-		String [] transactionsData=this.getTransactionsData();
+		String [] transactionsData=this.getTransactionsData(fileName);
 		
 		//transaction data digestion 
 		this.digesTransactionstData(transactionsData);
@@ -27,9 +27,9 @@ public class FinancialTransactionRecordsWorkFlow {
 	}
 	
 
-	private String[] getTransactionsData() throws IOException {
+	private String[] getTransactionsData(String fileName) throws IOException {
 		ReadFile radFile=new ReadFile();
-		return radFile.read("data");
+		return radFile.read(fileName);
 	}
 	
 	private void digesTransactionstData(String[] transactionsData) throws ParseException {
@@ -67,6 +67,10 @@ public class FinancialTransactionRecordsWorkFlow {
 			if(allTransactions.get(i).getTransactionId().equalsIgnoreCase(transactionId))
 				transaction= allTransactions.get(i);
 		return transaction;
+	}
+	
+	public List<Transaction> getAllTransactions(){
+		return this.allTransactions;
 	}
 
 }
