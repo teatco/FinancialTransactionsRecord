@@ -7,6 +7,8 @@ import java.util.*;
 
 public class FinancialTransactionRecordsWorkFlow {
 	private List<Transaction> allTransactions=new ArrayList<Transaction>();
+	private double balance=0;
+	private int numberOfTransactions=0;
 
 	public FinancialTransactionRecordsWorkFlow() {
 		// TODO Auto-generated constructor stub
@@ -56,15 +58,46 @@ public class FinancialTransactionRecordsWorkFlow {
 	
 	private String search(String accountId, Date from, Date to) {
 		String str ="Relative balance for the period is: ";
-		double balance=0;
-		int numberOfTransactions=0;
-		
+		this.transferTo(accountId, from, to);
+		this.transferFrom(accountId, from, to);
 		
 		str+=balance+"\n"+"Number of transactions included is: "+numberOfTransactions;
 		return str;
 
 	}
 	
+	private void transferFrom(String accountId, Date from, Date to) {
+		for (int i=0; i<this.allTransactions.size(); i++) {
+			if(this.allTransactions.get(i).getFromAccountId().equalsIgnoreCase(accountId)){
+				if(this.getAllTransactions().get(i) instanceof PaymentTransaction && this.allTransactions.get(i).getCreatedAt().after(from)&&this.allTransactions.get(i).getCreatedAt().before(to)) {
+					balance=balance-this.allTransactions.get(i).getAmount();
+					numberOfTransactions=numberOfTransactions+1;
+				}
+				else if (this.getAllTransactions().get(i) instanceof ReversalTransaction) {
+					balance=balance+this.getAllTransactions().get(i).getAmount();
+					numberOfTransactions=numberOfTransactions-1;
+				}
+			}
+		}
+		
+	}
+
+	private void transferTo(String accountId, Date from, Date to) {
+		for (int i=0; i<this.allTransactions.size(); i++) {
+			if(this.allTransactions.get(i).getToAccountId().equalsIgnoreCase(accountId)){
+				if(this.getAllTransactions().get(i) instanceof PaymentTransaction && this.allTransactions.get(i).getCreatedAt().after(from)&&this.allTransactions.get(i).getCreatedAt().before(to)) {
+					balance=balance+this.allTransactions.get(i).getAmount();
+					numberOfTransactions=numberOfTransactions+1;
+				}
+				else if (this.getAllTransactions().get(i) instanceof ReversalTransaction) {
+					balance=balance-this.getAllTransactions().get(i).getAmount();
+					numberOfTransactions=numberOfTransactions-1;
+				}
+			}
+		}
+		
+	}
+
 	private Transaction findTranscation(String transactionId) {
 		Transaction transaction=null;
 		for(int i=0; i<allTransactions.size(); i++)
