@@ -28,8 +28,8 @@ public class FinancialTransactionRecordsWorkFlow {
 	
 
 	private String[] getTransactionsData() throws IOException {
-		ReadFile rf=new ReadFile();
-		return rf.read();
+		ReadFile radFile=new ReadFile();
+		return radFile.read("data");
 	}
 	
 	private void digesTransactionstData(String[] transactionsData) throws ParseException {

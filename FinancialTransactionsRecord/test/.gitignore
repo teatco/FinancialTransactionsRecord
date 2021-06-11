@@ -2,3 +2,5 @@
 /TransactionTestCase.class
 /PaymentTransactionTestCase.class
 /ReversalTransactionTestCase.class
+/ReadFileTestCase.class
+/FinancialTransactionRecordsWorkFlowTestCase.class

@@ -3,12 +3,14 @@ package Main;
 import java.io.*;
 import java.util.*;
 
+
 public class ReadFile {
 
 	public ReadFile() {}
 	
-	public  String[] read() throws IOException {
-		BufferedReader abc = new BufferedReader(new FileReader(new File("data")));
+	public  String[] read(String fileName) throws IOException {
+
+		BufferedReader abc = new BufferedReader(new FileReader(new File("./"+fileName)));
 		List<String> lines = new ArrayList<String>();
 		String line="";
 		while(( line = abc.readLine()) != null) {
