@@ -12,7 +12,7 @@ public class FinancialTransactionRecordsWorkFlow {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public  void run(String accountId, Date from, Date to, String fileName) throws IOException, ParseException {
+	public  String run(String accountId, Date from, Date to, String fileName) throws IOException, ParseException {
 	
 		//read data form the file
 		String [] transactionsData=this.getTransactionsData(fileName);
@@ -21,7 +21,7 @@ public class FinancialTransactionRecordsWorkFlow {
 		this.digesTransactionstData(transactionsData);
 		
 		//search with an account Id and period 
-		this.search(accountId, from, to);
+		return this.search(accountId, from, to);
 	
 		
 	}
@@ -54,10 +54,14 @@ public class FinancialTransactionRecordsWorkFlow {
 		}		
 	}
 	
-	private void search(String accountId, Date from, Date to) {
+	private String search(String accountId, Date from, Date to) {
+		String str ="Relative balance for the period is: ";
+		double balance=0;
+		int numberOfTransactions=0;
 		
-		for(int i=0; i<allTransactions.size(); i++)
-			System.out.println(allTransactions.get(i).getTransactionId());
+		
+		str+=balance+"\n"+"Number of transactions included is: "+numberOfTransactions;
+		return str;
 
 	}
 	
