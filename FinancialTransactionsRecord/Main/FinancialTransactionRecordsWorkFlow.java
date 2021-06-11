@@ -1,6 +1,8 @@
 package Main;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class FinancialTransactionRecordsWorkFlow {
@@ -10,45 +12,53 @@ public class FinancialTransactionRecordsWorkFlow {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public  void run(String accountId, Date from, Date to) throws IOException {
+	public  void run(String accountId, Date from, Date to) throws IOException, ParseException {
 	
 		//read data form the file
-		String [] data=this.getData();
+		String [] transactionsData=this.getTransactionsData();
 		
-		//data digestion 
-		this.digestData(data);
+		//transaction data digestion 
+		this.digesTransactionstData(transactionsData);
 		
-		//search 
+		//search with an account Id and period 
 		this.search(accountId, from, to);
 	
 		
 	}
 	
 
-	private String[] getData() throws IOException {
+	private String[] getTransactionsData() throws IOException {
 		ReadFile rf=new ReadFile();
 		return rf.read();
 	}
 	
-	private void digestData(String[] transactions) {
-		for(int i=0; i<transactions.length; i++) {
-			String [] transaction = transactions[i].trim().split(",");	
+	private void digesTransactionstData(String[] transactionsData) throws ParseException {
+		for(int i=0; i<transactionsData.length; i++) {
+			String [] transaction = transactionsData[i].trim().split(",");	
+			String transactionId=transaction[0].trim();
+			String fromAccountId=transaction[1].trim();
+			String toAccountId=transaction[2].trim();
+			SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+			Date date = formatter.parse(transaction[3].trim());
+			double amount=Double.parseDouble(transaction[4].trim());
+
 			if(transaction.length==7) {
-				for(int j=0; j<transaction.length;j++) {
-					Transaction t=this.findTranscation(transaction[6].trim());
-					allTransactions.add(new ReversalTransaction(transaction[0].trim(), transaction[0].trim(),transaction[0].trim(),new Date(), 0,t));
-					//System.out.println(t.getAmount());
-				}
+				String refersedlTransactionId=transaction[6].trim();
+				Transaction t=this.findTranscation(refersedlTransactionId);
+				allTransactions.add(new ReversalTransaction(transactionId, fromAccountId,toAccountId, date, amount,t));
+				
 			}else if(transaction.length==6) {
-				allTransactions.add(new PaymentTransaction(transaction[0].trim(), transaction[0].trim(),transaction[0].trim(),new Date(), 0));
+				allTransactions.add(new PaymentTransaction(transactionId, fromAccountId, toAccountId,date, amount));
 
 			}
 		}		
 	}
 	
 	private void search(String accountId, Date from, Date to) {
-		// TODO Auto-generated method stub
 		
+		for(int i=0; i<allTransactions.size(); i++)
+			System.out.println(allTransactions.get(i).getTransactionId());
+
 	}
 	
 	private Transaction findTranscation(String transactionId) {
