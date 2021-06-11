@@ -4,11 +4,11 @@ import java.util.Date;
 
 public abstract class Transaction {
 	
-	private String transactionId ="";
-	private String fromAccountId="";
-	private String toAccountId="";
-	private Date createdAt=null;
-	private double amount=0;
+	protected String transactionId ="";
+	protected String fromAccountId="";
+	protected String toAccountId="";
+	protected Date createdAt=null;
+	protected double amount=0;
 	
 	public Transaction(String transactionId, String fromAccountId, String toAccountId, Date createdAt, double amount ) {
 		this.setTransactionId(transactionId);
@@ -57,6 +57,8 @@ public abstract class Transaction {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
+
+	public abstract String getTransactionType();
 	
 
 }

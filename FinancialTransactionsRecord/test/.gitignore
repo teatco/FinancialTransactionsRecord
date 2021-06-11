@@ -1,1 +1,4 @@
 /TransactionTestCases.class
+/TransactionTestCase.class
+/PaymentTransactionTestCase.class
+/ReversalTransactionTestCase.class
