@@ -18,7 +18,7 @@ public class FinancialTransactionRecordsWorkflow {
 		String [] transactionsData=this.getTransactionsData(fileName);
 		
 		//transaction data digestion 
-		this.digesTransactionstData(transactionsData);
+		this.digestTransactionstData(transactionsData);
 		
 		//search with an account Id and period 
 		return this.search(accountId, from, to);
@@ -32,7 +32,7 @@ public class FinancialTransactionRecordsWorkflow {
 		return radFile.read(fileName);
 	}
 	
-	private void digesTransactionstData(String[] transactionsData) throws ParseException {
+	private void digestTransactionstData(String[] transactionsData) throws ParseException {
 		for(int i=0; i<transactionsData.length; i++) {
 			String [] transaction = transactionsData[i].trim().split(",");	
 			String transactionId=transaction[0].trim();
