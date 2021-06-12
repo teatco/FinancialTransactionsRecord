@@ -5,14 +5,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class FinancialTransactionRecordsWorkFlow {
+public class FinancialTransactionRecordsWorkflow {
 	private List<Transaction> allTransactions=new ArrayList<Transaction>();
-	private double balance=0;
+	private double balance=0.0;
 	private int numberOfTransactions=0;
 
-	public FinancialTransactionRecordsWorkFlow() {
-		// TODO Auto-generated constructor stub
-	}
+	public FinancialTransactionRecordsWorkflow() {}
 	
 	public  String run(String accountId, Date from, Date to, String fileName) throws IOException, ParseException {
 	
@@ -73,7 +71,7 @@ public class FinancialTransactionRecordsWorkFlow {
 					balance=balance-this.allTransactions.get(i).getAmount();
 					numberOfTransactions=numberOfTransactions+1;
 				}
-				else if (this.getAllTransactions().get(i) instanceof ReversalTransaction) {
+				if (this.getAllTransactions().get(i) instanceof ReversalTransaction) {
 					balance=balance+this.getAllTransactions().get(i).getAmount();
 					numberOfTransactions=numberOfTransactions-1;
 				}
@@ -89,7 +87,7 @@ public class FinancialTransactionRecordsWorkFlow {
 					balance=balance+this.allTransactions.get(i).getAmount();
 					numberOfTransactions=numberOfTransactions+1;
 				}
-				else if (this.getAllTransactions().get(i) instanceof ReversalTransaction) {
+				if (this.getAllTransactions().get(i) instanceof ReversalTransaction) {
 					balance=balance-this.getAllTransactions().get(i).getAmount();
 					numberOfTransactions=numberOfTransactions-1;
 				}
@@ -108,6 +106,14 @@ public class FinancialTransactionRecordsWorkFlow {
 	
 	public List<Transaction> getAllTransactions(){
 		return this.allTransactions;
+	}
+	
+	public int getNumberOfTransactions() {
+		return this.numberOfTransactions;
+	}
+	
+	public double getBalance() {
+		return this.balance;
 	}
 
 }

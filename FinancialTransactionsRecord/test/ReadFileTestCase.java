@@ -14,7 +14,7 @@ class ReadFileTestCase {
 	void test() throws IOException {
 		ReadFile radFile=new ReadFile();
 		String[] transactionsData= radFile.read("test/testData1");
-		assertEquals(2, transactionsData.length);
+		assertEquals(5, transactionsData.length);
 	}
 
 }
