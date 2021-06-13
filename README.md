@@ -3,15 +3,15 @@ Financial Transactions Record is a simple software that records transactions
 
 
 Classes Structure 
-	---Transaction is an abstract class that will dive PaymentTransaction and ReversalTransaction
-	---PaymentTransaction to represent the actual transaction been done or accepted, will have an extra attribute which
+	*Transaction is an abstract class that will dive PaymentTransaction and ReversalTransaction
+	*PaymentTransaction to represent the actual transaction been done or accepted, will have an extra attribute which
 	is final constant to represent the transaction type as payment type.
-	---ReversalTransaction class to represent the transaction that has been refused, will have a pointer to
+	*ReversalTransaction class to represent the transaction that has been refused, will have a pointer to
 	the Transaction that has been rejected and also will have a final constant Transaction type. 
-	---ReadFile is a general class to read text file, has got a method that accept the file name as parameter
-	---FinancialTransactionRecordWorkFlow to structure the system and make calls to the following sub-component:
+	*ReadFile is a general class to read text file, has got a method that accept the file name as parameter
+	*FinancialTransactionRecordWorkFlow to structure the system and make calls to the following sub-component:
 	read form file, digest data, and calculate the account balance for an account in a period.
-	---FinancialTransactionRecords that will contain the main method
+	*FinancialTransactionRecords that will contain the main method
 	
 	
 Components of the System
